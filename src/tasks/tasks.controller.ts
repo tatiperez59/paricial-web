@@ -11,6 +11,7 @@ import { Model } from 'mongoose';
 import { Task, TaskDocument } from './schemas/task.schema';
 import { User, UserDocument } from '../users/schemas/user.schema';
 import { TasksService } from './tasks.service';
+import { CreateTaskDto }from './dto/create-task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -21,7 +22,7 @@ export class TasksController {
   ) {}
 
   @Post()
-  async create(@Body() payload: any) {
+  async create(@Body() payload: CreateTaskDto) {
     const user = await this.userModel.findById(payload.userId);
     if (!user) {
       throw new NotFoundException(
